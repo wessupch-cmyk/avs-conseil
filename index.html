@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AVS Conseil – Accompagnement des entreprises lors des contrôles AVS. Expertise, préparation, défense de vos intérêts face aux caisses de compensation.">
+<title>AVS Conseil – Accompagnement Contrôle AVS</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & BASE ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  font-weight: 400;
+  color: #1a1a2e;
+  background: #fafaf8;
+  overflow-x: hidden;
+}
+
+/* ── VARIABLES ──────────────────────────────────────────── */
+:root {
+  --navy: #0f1f3d;
+  --navy2: #162847;
+  --gold: #b8872a;
+  --gold-light: #d4a84b;
+  --cream: #fafaf8;
+  --cream2: #f2f0eb;
+  --text: #1a1a2e;
+  --muted: #6b7280;
+  --border: #e2ddd6;
+  --red-risk: #c0392b;
+}
+
+/* ── TYPOGRAPHY ─────────────────────────────────────────── */
+h1, h2, h3 { font-family: 'Playfair Display', Georgia, serif; line-height: 1.2; }
+
+/* ── ANIMATIONS ─────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes lineGrow {
+  from { width: 0; }
+  to   { width: 60px; }
+}
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── NAV ────────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(15,31,61,.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(184,135,42,.25);
+  padding: 0 2rem;
+  height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: .75rem;
+  text-decoration: none;
+}
+.nav-logo .emblem {
+  width: 36px; height: 36px;
+  background: var(--gold);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 900;
+  color: #fff;
+  letter-spacing: -.02em;
+}
+.nav-logo span {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-weight: 700;
+  color: #fff;
+  letter-spacing: .02em;
+}
+.nav-logo span em { color: var(--gold-light); font-style: normal; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: rgba(255,255,255,.7);
+  font-size: .85rem; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--gold-light); }
+.nav-cta {
+  background: var(--gold); color: #fff !important;
+  padding: .45rem 1.2rem; border-radius: 4px;
+  font-weight: 600 !important;
+}
+.nav-cta:hover { background: var(--gold-light); color: #fff !important; }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger span { width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: .3s; }
+
+/* ── HERO ───────────────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  background: var(--navy);
+  position: relative;
+  display: flex; align-items: center;
+  overflow: hidden;
+  padding-top: 68px;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(184,135,42,.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at -10% 100%, rgba(184,135,42,.08) 0%, transparent 50%);
+}
+/* Swiss cross watermark */
+.hero-watermark {
+  position: absolute; right: -2rem; top: 50%;
+  transform: translateY(-50%);
+  width: 520px; height: 520px;
+  opacity: .04;
+}
+.hero-watermark::before, .hero-watermark::after {
+  content: '';
+  position: absolute;
+  background: #fff;
+  border-radius: 4px;
+}
+.hero-watermark::before { width: 20%; height: 80%; top: 10%; left: 40%; }
+.hero-watermark::after  { width: 80%; height: 20%; top: 40%; left: 10%; }
+
+/* Grid lines */
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 1100px; margin: 0 auto;
+  padding: 5rem 2rem;
+  display: grid; grid-template-columns: 1fr 400px;
+  gap: 4rem; align-items: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: .6rem;
+  color: var(--gold-light);
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 32px; height: 1px; background: var(--gold);
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--gold-light);
+  display: block;
+}
+
+.hero-lead {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,.65);
+  line-height: 1.75;
+  max-width: 520px;
+  margin-bottom: 2.5rem;
+}
+
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--gold); color: #fff;
+  text-decoration: none; font-weight: 600; font-size: .95rem;
+  padding: .9rem 2rem; border-radius: 4px;
+  transition: background .2s, transform .15s;
+  letter-spacing: .02em;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: transparent; color: rgba(255,255,255,.8);
+  text-decoration: none; font-weight: 600; font-size: .95rem;
+  padding: .9rem 2rem; border-radius: 4px;
+  border: 1px solid rgba(255,255,255,.2);
+  transition: border-color .2s, color .2s;
+}
+.btn-secondary:hover { border-color: var(--gold-light); color: var(--gold-light); }
+
+/* Hero card */
+.hero-card {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(184,135,42,.3);
+  border-radius: 12px;
+  padding: 2rem;
+  backdrop-filter: blur(8px);
+  animation: fadeUp .8s .4s both;
+}
+.hero-card-title {
+  font-size: .7rem; font-weight: 600;
+  letter-spacing: .15em; text-transform: uppercase;
+  color: var(--gold-light); margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.hero-card-title::after { content: ''; flex: 1; height: 1px; background: rgba(184,135,42,.3); }
+.stat-row { display: flex; flex-direction: column; gap: .75rem; }
+.stat-item {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: .85rem 1rem;
+  background: rgba(255,255,255,.04);
+  border-radius: 8px;
+  border-left: 3px solid var(--gold);
+}
+.stat-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem; font-weight: 900;
+  color: var(--gold-light); line-height: 1;
+  white-space: nowrap;
+}
+.stat-label { font-size: .8rem; color: rgba(255,255,255,.6); line-height: 1.5; margin-top: .15rem; }
+.stat-label strong { color: rgba(255,255,255,.9); display: block; font-size: .85rem; }
+
+/* ── TRUST BAR ──────────────────────────────────────────── */
+.trust-bar {
+  background: var(--cream2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 1.25rem 2rem;
+}
+.trust-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: center;
+  gap: 3rem; flex-wrap: wrap;
+}
+.trust-item {
+  display: flex; align-items: center; gap: .6rem;
+  font-size: .8rem; font-weight: 600;
+  color: var(--navy); letter-spacing: .05em; text-transform: uppercase;
+}
+.trust-item .icon {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .85rem;
+}
+.trust-divider { width: 1px; height: 24px; background: var(--border); }
+
+/* ── SECTIONS COMMON ────────────────────────────────────── */
+section { padding: 6rem 2rem; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-label {
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-size: .72rem; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1rem;
+}
+.section-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+.section-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  color: var(--navy);
+  margin-bottom: 1rem;
+}
+.section-lead {
+  font-size: 1.05rem; color: var(--muted);
+  line-height: 1.75; max-width: 560px;
+}
+
+/* ── PROBLEMS ───────────────────────────────────────────── */
+.problems { background: var(--navy); }
+.problems .section-title { color: #fff; }
+.problems .section-lead { color: rgba(255,255,255,.55); }
+.problems .section-label { color: var(--gold-light); }
+.problems .section-label::before { background: var(--gold-light); }
+
+.problems-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
+.problem-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 10px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .25s, background .25s;
+}
+.problem-card:hover {
+  border-color: rgba(184,135,42,.4);
+  background: rgba(255,255,255,.07);
+}
+.problem-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+.problem-icon {
+  font-size: 1.6rem; margin-bottom: .75rem;
+}
+.problem-card h3 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: .95rem; font-weight: 600;
+  color: #fff; margin-bottom: .5rem;
+}
+.problem-card p { font-size: .83rem; color: rgba(255,255,255,.5); line-height: 1.65; }
+.risk-badge {
+  display: inline-block;
+  margin-top: .75rem;
+  background: rgba(192,57,43,.15);
+  border: 1px solid rgba(192,57,43,.3);
+  color: #e07b6e;
+  font-size: .68rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: .2rem .6rem; border-radius: 4px;
+}
+
+/* ── SERVICES ───────────────────────────────────────────── */
+.services { background: var(--cream); }
+.services-header {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 3rem; align-items: end;
+  margin-bottom: 3.5rem;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.service-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  position: relative;
+  transition: box-shadow .25s, border-color .25s, transform .2s;
+}
+.service-card:hover {
+  box-shadow: 0 12px 40px rgba(15,31,61,.1);
+  border-color: var(--gold);
+  transform: translateY(-3px);
+}
+.service-card.featured {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, #fff 60%, #fdf8f0);
+}
+.service-card.featured::after {
+  content: 'Recommandé';
+  position: absolute; top: -1px; right: 1.5rem;
+  background: var(--gold); color: #fff;
+  font-size: .65rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: .25rem .75rem;
+  border-radius: 0 0 6px 6px;
+}
+.service-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem; font-weight: 900;
+  color: var(--cream2); line-height: 1;
+  margin-bottom: .5rem;
+}
+.service-card h3 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.05rem; font-weight: 700;
+  color: var(--navy); margin-bottom: .75rem;
+}
+.service-card p { font-size: .85rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; }
+.service-list { list-style: none; display: flex; flex-direction: column; gap: .4rem; }
+.service-list li {
+  font-size: .8rem; color: var(--navy);
+  display: flex; align-items: flex-start; gap: .5rem; line-height: 1.5;
+}
+.service-list li::before {
+  content: '→';
+  color: var(--gold); font-weight: 700; flex-shrink: 0;
+  margin-top: .05rem;
+}
+
+/* ── HOW IT WORKS ───────────────────────────────────────── */
+.process { background: var(--cream2); }
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0;
+  margin-top: 3.5rem;
+  position: relative;
+}
+.process-steps::before {
+  content: '';
+  position: absolute;
+  top: 32px; left: 10%; right: 10%;
+  height: 1px; background: var(--border);
+  z-index: 0;
+}
+.process-step {
+  text-align: center;
+  padding: 0 1.5rem 2rem;
+  position: relative; z-index: 1;
+}
+.step-num {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.25rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem; font-weight: 900;
+  color: var(--gold);
+  box-shadow: 0 4px 16px rgba(184,135,42,.15);
+}
+.process-step h3 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: .95rem; font-weight: 700;
+  color: var(--navy); margin-bottom: .5rem;
+}
+.process-step p { font-size: .8rem; color: var(--muted); line-height: 1.6; }
+
+/* ── CONTACT ────────────────────────────────────────────── */
+.contact { background: var(--cream); }
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: start;
+  margin-top: 3rem;
+}
+.contact-info { }
+.contact-info h3 {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1rem; font-weight: 700;
+  color: var(--navy); margin-bottom: .5rem; margin-top: 1.75rem;
+}
+.contact-info h3:first-child { margin-top: 0; }
+.contact-info p { font-size: .88rem; color: var(--muted); line-height: 1.7; }
+.contact-info a { color: var(--gold); text-decoration: none; font-weight: 600; }
+.contact-info a:hover { text-decoration: underline; }
+
+.contact-guarantee {
+  margin-top: 2rem;
+  background: var(--cream2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.25rem;
+  font-size: .82rem; color: var(--navy); line-height: 1.65;
+}
+.contact-guarantee strong { color: var(--gold); }
+
+/* Form */
+.contact-form {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 24px rgba(15,31,61,.06);
+}
+.form-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem; color: var(--navy);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.form-group { margin-bottom: 1.1rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+label {
+  display: block;
+  font-size: .75rem; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--navy); margin-bottom: .4rem;
+}
+input, select, textarea {
+  width: 100%;
+  padding: .75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: .9rem; color: var(--text);
+  background: var(--cream);
+  transition: border-color .2s, box-shadow .2s;
+  outline: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(184,135,42,.12);
+  background: #fff;
+}
+textarea { resize: vertical; min-height: 110px; }
+select { cursor: pointer; }
+.btn-submit {
+  width: 100%; padding: .9rem;
+  background: var(--navy); color: #fff;
+  border: none; border-radius: 6px;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: .95rem; font-weight: 700;
+  cursor: pointer; letter-spacing: .03em;
+  transition: background .2s;
+  display: flex; align-items: center; justify-content: center; gap: .5rem;
+}
+.btn-submit:hover { background: var(--navy2); }
+.form-note { font-size: .72rem; color: var(--muted); text-align: center; margin-top: .75rem; }
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+footer {
+  background: var(--navy);
+  padding: 3rem 2rem 2rem;
+  color: rgba(255,255,255,.5);
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1.5rem;
+}
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; color: #fff;
+}
+.footer-logo em { color: var(--gold-light); font-style: normal; }
+.footer-copy { font-size: .78rem; }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a { font-size: .78rem; color: rgba(255,255,255,.4); text-decoration: none; transition: color .2s; }
+.footer-links a:hover { color: var(--gold-light); }
+.footer-divider { border: none; border-top: 1px solid rgba(255,255,255,.08); margin-bottom: 1.5rem; }
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .hero-content { grid-template-columns: 1fr; }
+  .hero-card { display: none; }
+  .services-header { grid-template-columns: 1fr; gap: 1rem; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .process-steps::before { display: none; }
+  .trust-inner { gap: 1.5rem; }
+  .trust-divider { display: none; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ──────────────────────────────────────── -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="emblem">AC</div>
+    <span>AVS <em>Conseil</em></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#problemes">Enjeux</a></li>
+    <li><a href="#prestations">Prestations</a></li>
+    <li><a href="#methode">Méthode</a></li>
+    <li><a href="#contact" class="nav-cta">Nous contacter</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ── HERO ────────────────────────────────────────────── -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-watermark"></div>
+  <div class="hero-content">
+    <div style="animation: fadeUp .8s .1s both;">
+      <div class="hero-eyebrow">Spécialiste en droit des assurances sociales</div>
+      <h1>
+        Contrôle AVS :
+        <em>protégez votre entreprise</em>
+        avant qu'il soit trop tard.
+      </h1>
+      <p class="hero-lead">
+        Un contrôle AVS mal préparé peut coûter des dizaines de milliers de francs à votre entreprise. AVS Conseil vous accompagne à chaque étape : audit préventif, préparation des dossiers, présence lors du contrôle et défense en cas de redressement.
+      </p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary">
+          → Demander un audit gratuit
+        </a>
+        <a href="#prestations" class="btn-secondary">
+          Découvrir nos prestations
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-card-title">Chiffres clés</div>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-n">5 ans</div>
+          <div class="stat-label"><strong>Délai de prescription</strong>Un contrôle peut remonter jusqu'à 5 exercices</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-n">5%</div>
+          <div class="stat-label"><strong>Intérêts moratoires</strong>Sur chaque franc non déclaré, par an</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-n">CHF 30k</div>
+          <div class="stat-label"><strong>Amende maximale</strong>En cas de soustraction intentionnelle</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-n">80%</div>
+          <div class="stat-label"><strong>Risques évitables</strong>Avec une préparation professionnelle</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUST BAR ────────────────────────────────────────── -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item"><div class="icon">🇨🇭</div> Expertise droit suisse</div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="icon">🔒</div> Confidentialité garantie</div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="icon">⚡</div> Réponse sous 24h</div>
+    <div class="trust-divider"></div>
+    <div class="trust-item"><div class="icon">📋</div> Audit préventif offert</div>
+  </div>
+</div>
+
+<!-- ── PROBLEMS ─────────────────────────────────────────── -->
+<section class="problems" id="problemes">
+  <div class="section-inner">
+    <div class="section-label reveal">Les enjeux du contrôle AVS</div>
+    <h2 class="section-title reveal">Ce que les employeurs ignorent souvent… jusqu'au contrôle.</h2>
+    <p class="section-lead reveal">La LAVS est complexe. Les erreurs de déclaration sont fréquentes, souvent involontaires — mais toujours sanctionnées.</p>
+
+    <div class="problems-grid">
+
+      <div class="problem-card reveal">
+        <div class="problem-icon">💼</div>
+        <h3>Salaire déterminant mal défini</h3>
+        <p>Primes, avantages en nature, véhicules de société, chèques-repas : beaucoup d'employeurs ignorent ce qui entre dans la base de cotisation.</p>
+        <span class="risk-badge">⚠ Redressement fréquent</span>
+      </div>
+
+      <div class="problem-card reveal">
+        <div class="problem-icon">📂</div>
+        <h3>Documentation insuffisante</h3>
+        <p>Absence de règlement de frais validé, livres de salaires incomplets, contrats manquants : le contrôleur estime alors lui-même — à votre désavantage.</p>
+        <span class="risk-badge">⚠ Taxation d'office</span>
+      </div>
+
+      <div class="problem-card reveal">
+        <div class="problem-icon">👤</div>
+        <h3>Statut des collaborateurs flou</h3>
+        <p>Indépendants requalifiés en salariés, associés-gérants sous-rémunérés, membres de la famille non déclarés : autant de sources de rappels massifs.</p>
+        <span class="risk-badge">⚠ Rappel + intérêts</span>
+      </div>
+
+      <div class="problem-card reveal">
+        <div class="problem-icon">⏱️</div>
+        <h3>Délais non respectés</h3>
+        <p>Acomptes tardifs, décompte annuel hors délai : les intérêts moratoires à 5%/an s'accumulent silencieusement sur plusieurs exercices.</p>
+        <span class="risk-badge">⚠ Intérêts 5%/an</span>
+      </div>
+
+      <div class="problem-card reveal">
+        <div class="problem-icon">🌍</div>
+        <h3>Travailleurs étrangers et détachement</h3>
+        <p>Absence de formulaire A1, dépassement de durée de détachement : risque de double cotisation et amendes administratives.</p>
+        <span class="risk-badge">⚠ Double cotisation</span>
+      </div>
+
+      <div class="problem-card reveal">
+        <div class="problem-icon">⚖️</div>
+        <h3>Responsabilité personnelle des organes</h3>
+        <p>En cas de faillite ou d'insolvabilité, les administrateurs et gérants peuvent être tenus personnellement responsables des cotisations impayées (art. 52 LAVS).</p>
+        <span class="risk-badge">⚠ Risque personnel</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ─────────────────────────────────────────── -->
+<section class="services" id="prestations">
+  <div class="section-inner">
+    <div class="services-header reveal">
+      <div>
+        <div class="section-label">Nos prestations</div>
+        <h2 class="section-title">Un accompagnement complet,<br>à chaque étape.</h2>
+      </div>
+      <p class="section-lead">De l'audit préventif à la contestation d'un redressement, AVS Conseil intervient à vos côtés avec méthode et rigueur.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <div class="service-num">01</div>
+        <h3>Audit préventif AVS</h3>
+        <p>Analyse complète de vos déclarations, de vos pratiques de rémunération et de votre documentation avant tout contrôle.</p>
+        <ul class="service-list">
+          <li>Revue du livre de salaires</li>
+          <li>Vérification des frais et avantages en nature</li>
+          <li>Analyse du statut des collaborateurs</li>
+          <li>Rapport écrit avec recommandations</li>
+        </ul>
+      </div>
+
+      <div class="service-card featured reveal">
+        <div class="service-num">02</div>
+        <h3>Accompagnement lors du contrôle</h3>
+        <p>Nous sommes présents à vos côtés le jour du contrôle. Nous dialoguons avec le réviseur, protégeons vos intérêts et limitons les risques de redressement.</p>
+        <ul class="service-list">
+          <li>Préparation du dossier de contrôle</li>
+          <li>Présence physique lors de la révision</li>
+          <li>Interface avec la caisse de compensation</li>
+          <li>Suivi post-contrôle et mise en conformité</li>
+        </ul>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-num">03</div>
+        <h3>Défense en cas de redressement</h3>
+        <p>Si une décision de rappel ou d'amende est notifiée, nous analysons les bases légales et vous défendons par voie de réclamation ou de recours.</p>
+        <ul class="service-list">
+          <li>Analyse de la décision de redressement</li>
+          <li>Rédaction de la réclamation (délai 30 jours)</li>
+          <li>Recours au Tribunal cantonal si nécessaire</li>
+          <li>Négociation avec la caisse de compensation</li>
+        </ul>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-num">04</div>
+        <h3>Formation & mise en conformité</h3>
+        <p>Sensibilisez vos équipes RH et fiduciaires aux exigences AVS. Mettez en place les outils et procédures pour éviter les erreurs récurrentes.</p>
+        <ul class="service-list">
+          <li>Formation RH aux règles de déclaration</li>
+          <li>Rédaction du règlement de frais</li>
+          <li>Mise en place du classeur de contrôle</li>
+          <li>Suivi annuel de conformité</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESS ──────────────────────────────────────────── -->
+<section class="process" id="methode">
+  <div class="section-inner">
+    <div class="section-label reveal">Notre méthode</div>
+    <h2 class="section-title reveal">Comment nous intervenons</h2>
+
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="step-num">1</div>
+        <h3>Premier entretien</h3>
+        <p>Analyse rapide de votre situation et identification des risques principaux. Gratuit et confidentiel.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">2</div>
+        <h3>Diagnostic complet</h3>
+        <p>Revue de vos documents, salaires, contrats et pratiques de rémunération sur les 5 derniers exercices.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">3</div>
+        <h3>Plan d'action</h3>
+        <p>Rapport écrit avec les corrections à apporter et la stratégie à adopter face au contrôle ou au redressement.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">4</div>
+        <h3>Suivi & protection</h3>
+        <p>Accompagnement lors du contrôle et mise en place des procédures pour éviter toute récidive.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ──────────────────────────────────────────── -->
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <div class="section-label reveal">Contact</div>
+    <h2 class="section-title reveal">Parlons de votre situation</h2>
+
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h3>Un premier entretien gratuit</h3>
+        <p>Nous vous offrons un premier entretien de 30 minutes pour analyser votre situation et identifier les risques principaux. Sans engagement.</p>
+
+        <h3>Confidentialité absolue</h3>
+        <p>Toutes les informations transmises sont traitées avec la plus stricte confidentialité. Nos échanges sont protégés par le secret professionnel.</p>
+
+        <h3>Réponse rapide</h3>
+        <p>Nous nous engageons à vous répondre <strong>sous 24 heures ouvrables</strong>. En cas d'urgence (contrôle imminent), contactez-nous directement par téléphone.</p>
+
+        <h3>Coordonnées</h3>
+        <p>
+          📧 <a href="mailto:contact@avs-conseil.ch">contact@avs-conseil.ch</a><br>
+          📞 <a href="tel:+41000000000">+41 00 000 00 00</a><br>
+          📍 Suisse romande
+        </p>
+
+        <div class="contact-guarantee">
+          <strong>Notre engagement :</strong> si notre intervention ne vous permet pas d'éviter ou de réduire un redressement, le premier audit vous est remboursé intégralement.
+        </div>
+      </div>
+
+      <div class="contact-form reveal">
+        <div class="form-title">Demande de contact</div>
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="prenom">Prénom *</label>
+              <input type="text" id="prenom" placeholder="Jean" required>
+            </div>
+            <div class="form-group">
+              <label for="nom">Nom *</label>
+              <input type="text" id="nom" placeholder="Dupont" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email professionnel *</label>
+            <input type="email" id="email" placeholder="jean.dupont@entreprise.ch" required>
+          </div>
+          <div class="form-group">
+            <label for="tel">Téléphone</label>
+            <input type="tel" id="tel" placeholder="+41 79 000 00 00">
+          </div>
+          <div class="form-group">
+            <label for="situation">Votre situation *</label>
+            <select id="situation" required>
+              <option value="">— Sélectionnez —</option>
+              <option>Contrôle AVS annoncé prochainement</option>
+              <option>Contrôle en cours</option>
+              <option>Redressement / amende reçu(e)</option>
+              <option>Audit préventif (pas de contrôle annoncé)</option>
+              <option>Formation de mon équipe RH</option>
+              <option>Autre question</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="Décrivez brièvement votre situation et ce en quoi nous pouvons vous aider…"></textarea>
+          </div>
+          <button type="submit" class="btn-submit">
+            → Envoyer ma demande
+          </button>
+          <p class="form-note">🔒 Vos données sont traitées de manière confidentielle et ne sont jamais transmises à des tiers.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ───────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner" style="padding-bottom:1.5rem;">
+    <div class="footer-logo">AVS <em>Conseil</em></div>
+    <div class="footer-links">
+      <a href="#problemes">Enjeux</a>
+      <a href="#prestations">Prestations</a>
+      <a href="#methode">Méthode</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-copy">© 2025 AVS Conseil · Tous droits réservés</div>
+  </div>
+  <hr class="footer-divider">
+  <div class="footer-inner" style="justify-content:center;">
+    <p style="font-size:.72rem; text-align:center; max-width:600px;">
+      AVS Conseil est un service de conseil en matière d'assurances sociales. Les informations présentées sur ce site sont à titre indicatif et ne constituent pas un avis juridique. Consultez un spécialiste pour toute situation personnelle.
+    </p>
+  </div>
+</footer>
+
+<script>
+// ── SCROLL REVEAL ────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── NAV SCROLL ───────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  nav.style.boxShadow = window.scrollY > 10 ? '0 2px 20px rgba(0,0,0,.3)' : 'none';
+});
+
+// ── MOBILE MENU ──────────────────────────────────────────
+function toggleMenu() {
+  const links = document.querySelector('.nav-links');
+  links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+  links.style.flexDirection = 'column';
+  links.style.position = 'absolute';
+  links.style.top = '68px';
+  links.style.left = '0'; links.style.right = '0';
+  links.style.background = '#0f1f3d';
+  links.style.padding = '1.5rem 2rem';
+  links.style.gap = '1.25rem';
+  links.style.borderBottom = '1px solid rgba(184,135,42,.2)';
+}
+
+// Close menu on link click
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    const links = document.querySelector('.nav-links');
+    if (window.innerWidth < 768) links.style.display = 'none';
+  });
+});
+
+// ── FORM SUBMIT ──────────────────────────────────────────
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.btn-submit');
+  btn.textContent = '✅ Message envoyé !';
+  btn.style.background = '#1a7a4a';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = '→ Envoyer ma demande';
+    btn.style.background = '';
+    btn.disabled = false;
+    e.target.reset();
+  }, 4000);
+}
+</script>
+</body>
+</html>

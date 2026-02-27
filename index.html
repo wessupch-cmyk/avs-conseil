@@ -800,8 +800,8 @@ footer {
 
         <h3>Coordonnées</h3>
         <p>
-          📧 <a href="mailto:contact@avs-conseil.ch">contact@avs-conseil.ch</a><br>
-          📞 <a href="tel:+41000000000">+41 00 000 00 00</a><br>
+          📧 <a href="mailto:directeur@wes-sup.fr">directeur@wes-sup.fr</a><br>
+          📞 <a href="tel:+41762326268">+41 76 232 62 68</a><br>
           📍 Suisse romande
         </p>
 
@@ -920,6 +920,15 @@ document.querySelectorAll('.nav-links a').forEach(a => {
 // ── FORM SUBMIT ──────────────────────────────────────────
 function handleSubmit(e) {
   e.preventDefault();
+  const prenom = document.getElementById('prenom').value;
+  const nom = document.getElementById('nom').value;
+  const email = document.getElementById('email').value;
+  const tel = document.getElementById('tel').value;
+  const situation = document.getElementById('situation').value;
+  const message = document.getElementById('message').value;
+  const subject = encodeURIComponent('Demande AVS Conseil – ' + situation);
+  const body = encodeURIComponent('Prénom: ' + prenom + '\nNom: ' + nom + '\nEmail: ' + email + '\nTél: ' + tel + '\nSituation: ' + situation + '\n\nMessage:\n' + message);
+  window.location.href = 'mailto:directeur@wes-sup.fr?subject=' + subject + '&body=' + body;
   const btn = e.target.querySelector('.btn-submit');
   btn.textContent = '✅ Message envoyé !';
   btn.style.background = '#1a7a4a';
